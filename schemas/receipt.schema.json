@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://elyria.systems/schemas/receipt.schema.json",
+  "title": "Consequence Verdict Receipt",
+  "type": "object",
+  "required": [
+    "receipt_id",
+    "movement_id",
+    "verdict",
+    "reasons",
+    "timestamp_utc",
+    "input_hash"
+  ],
+  "properties": {
+    "receipt_id": {
+      "type": "string"
+    },
+    "movement_id": {
+      "type": "string"
+    },
+    "verdict": {
+      "enum": [
+        "ADMIT",
+        "HOLD",
+        "REFUSE",
+        "NO_PROVABLE_ADMISSION"
+      ]
+    },
+    "color": {
+      "enum": [
+        "green",
+        "yellow",
+        "red",
+        "black"
+      ]
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "timestamp_utc": {
+      "type": "string"
+    },
+    "input_hash": {
+      "type": "string"
+    },
+    "replay_available": {
+      "type": "boolean"
+    }
+  }
+}
