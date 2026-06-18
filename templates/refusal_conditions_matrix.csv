@@ -1,0 +1,2 @@
+condition_id,movement_id,refusal_condition,severity,verdict,reason,repair_path
+RC-001,MOVE-001,authority absent or outside scope,hard block,REFUSE,movement cannot bind without valid authority,assign scoped authority and retry
