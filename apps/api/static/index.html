@@ -23,10 +23,12 @@
     header { padding: 42px 6vw 26px; border-bottom: 1px solid rgba(122, 238, 255, .28); }
     h1 { margin: 0 0 10px; font-size: clamp(34px, 5.4vw, 72px); letter-spacing: .04em; line-height: 1.08; }
     h2, h3 { margin-top: 0; }
+    label { display: grid; gap: 6px; color: #cdeeff; font-weight: 800; }
     .tag { color: var(--cyan); font-weight: 900; letter-spacing: .05em; }
     .lede { max-width: 980px; color: #d6edf8; font-size: 17px; }
     main { padding: 28px 6vw 70px; display: grid; gap: 24px; }
     .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .form-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin: 14px 0; }
     .card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px; box-shadow: 0 0 32px rgba(0,220,255,.08); }
     .metric { min-height: 136px; }
     .metric .num { font-size: 44px; font-weight: 950; letter-spacing: .03em; margin: 8px 0; }
@@ -34,7 +36,9 @@
     button { background: var(--cyan); color: #021018; border: 0; border-radius: 10px; padding: 12px 16px; font-weight: 900; cursor: pointer; margin: 6px 8px 6px 0; }
     button.secondary { background: #10283a; color: var(--cyan); border: 1px solid var(--line); }
     button.danger { background: #371217; color: #ff9aa4; border: 1px solid rgba(255,108,108,.58); }
-    input { width: min(520px, 100%); background: #02070c; color: #e8f8ff; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin: 6px 8px 6px 0; }
+    input, select, textarea { width: 100%; background: #02070c; color: #e8f8ff; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+    #token-input { width: min(520px, 100%); margin: 6px 8px 6px 0; }
+    textarea { min-height: 84px; resize: vertical; }
     pre { overflow: auto; background: #02070c; border: 1px solid rgba(122,238,255,.22); border-radius: 12px; padding: 14px; max-height: 420px; }
     .green { color: var(--green); } .yellow { color: var(--yellow); } .red { color: var(--red); } .black { color: var(--black); }
     .warning { border-color: rgba(255,108,108,.58); background: linear-gradient(135deg, rgba(77,10,14,.66), rgba(6,19,31,.76)); display: none; }
@@ -79,6 +83,31 @@
       <p class="auth-help">Demo mode works without a token. Client mode protects receipt, replay, proof export, sandbox reset, and movement assessment endpoints.</p>
     </section>
 
+    <section class="card">
+      <h2>Client Movement Intake</h2>
+      <p class="auth-help">Enter a movement, submit it into the consequence twin, and receive a signed admission receipt with graph impact.</p>
+      <div class="form-grid">
+        <label>Movement ID<input id="movement_id" value="CLIENT-001" /></label>
+        <label>Source Node<input id="source_node" value="client.workflow" /></label>
+        <label>Target Node<input id="target_node" value="protected.action" /></label>
+        <label>Authority Present<select id="authority_present"><option value="true">true</option><option value="false">false</option></select></label>
+        <label>Authority Scope Valid<select id="authority_scope_valid"><option value="true">true</option><option value="false">false</option></select></label>
+        <label>Standing Active<select id="standing_active"><option value="true">true</option><option value="false">false</option></select></label>
+        <label>Evidence Present<select id="evidence_present"><option value="true">true</option><option value="false">false</option></select></label>
+        <label>Evidence Sufficient<select id="evidence_sufficient"><option value="true">true</option><option value="false">false</option></select></label>
+        <label>Custody Preserved<select id="custody_preserved"><option value="true">true</option><option value="false">false</option></select></label>
+        <label>Refusal Condition Active<select id="refusal_condition_active"><option value="false">false</option><option value="true">true</option></select></label>
+        <label>Revalidation Required<select id="revalidation_required"><option value="false">false</option><option value="true">true</option></select></label>
+        <label>Receipt Available<select id="receipt_available"><option value="true">true</option><option value="false">false</option></select></label>
+        <label>Replay Available<select id="replay_available"><option value="true">true</option><option value="false">false</option></select></label>
+      </div>
+      <label>Notes<textarea id="notes">Client-entered movement.</textarea></label>
+      <button onclick="submitMovement()">Submit Movement + Emit Receipt</button>
+      <button class="secondary" onclick="loadCurrentGraph()">Load Current Graph</button>
+      <button class="secondary" onclick="presetBlackPath()">Preset Black Path</button>
+      <button class="secondary" onclick="presetRefusal()">Preset Refusal</button>
+    </section>
+
     <section class="grid" id="metrics">
       <div class="card metric"><h3>Total Movements</h3><div class="num" id="m-total">—</div><p>All assessed paths.</p></div>
       <div class="card metric"><h3>Admit</h3><div class="num green" id="m-admit">—</div><p>May bind consequence.</p></div>
@@ -93,7 +122,8 @@
 
     <section class="card">
       <button onclick="resetSandbox()">Reset Sandbox + Generate Receipts</button>
-      <button onclick="loadGraph()">Load Visual Exposure Graph</button>
+      <button onclick="loadGraph()">Load Demo Exposure Graph</button>
+      <button onclick="loadCurrentGraph()">Load Current Stored Graph</button>
       <button onclick="loadReceipts()">Load Receipt Cards</button>
       <button onclick="exportProof()">Export Proof Packet</button>
       <button class="secondary" onclick="loadRawProof()">Show Raw Proof JSON</button>
@@ -106,7 +136,7 @@
       </section>
       <section class="card">
         <h2>Receipt + Replay Surface</h2>
-        <div id="receipts" class="receipt-list">Reset sandbox, then load receipts.</div>
+        <div id="receipts" class="receipt-list">Reset sandbox, submit a movement, then load receipts.</div>
       </section>
     </section>
 
@@ -128,6 +158,9 @@
     let latestProof = null;
 
     const colorClass = color => ['green','yellow','red','black'].includes(color) ? color : 'black';
+    const formFields = [
+      'movement_id','source_node','target_node','authority_present','authority_scope_valid','standing_active','evidence_present','evidence_sufficient','custody_preserved','refusal_condition_active','revalidation_required','receipt_available','replay_available','notes'
+    ];
 
     function savedToken() { return localStorage.getItem(TOKEN_KEY) || ''; }
 
@@ -145,10 +178,7 @@
 
     function saveToken() {
       const token = tokenInput.value.trim();
-      if (!token) {
-        clearToken();
-        return;
-      }
+      if (!token) { clearToken(); return; }
       localStorage.setItem(TOKEN_KEY, token);
       markAuthState();
       out.textContent = 'Client token saved locally for this browser.';
@@ -176,6 +206,62 @@
 
     function show(data) { out.textContent = JSON.stringify(data, null, 2); }
 
+    function setField(id, value) { document.getElementById(id).value = String(value); }
+    function boolValue(id) { return document.getElementById(id).value === 'true'; }
+
+    function movementPayload() {
+      return {
+        movement_id: document.getElementById('movement_id').value.trim() || `CLIENT-${Date.now()}`,
+        source_node: document.getElementById('source_node').value.trim() || 'client.workflow',
+        target_node: document.getElementById('target_node').value.trim() || 'protected.action',
+        authority_present: boolValue('authority_present'),
+        authority_scope_valid: boolValue('authority_scope_valid'),
+        standing_active: boolValue('standing_active'),
+        evidence_present: boolValue('evidence_present'),
+        evidence_sufficient: boolValue('evidence_sufficient'),
+        custody_preserved: boolValue('custody_preserved'),
+        refusal_condition_active: boolValue('refusal_condition_active'),
+        revalidation_required: boolValue('revalidation_required'),
+        receipt_available: boolValue('receipt_available'),
+        replay_available: boolValue('replay_available'),
+        notes: document.getElementById('notes').value.trim()
+      };
+    }
+
+    function presetBlackPath() {
+      setField('movement_id', `CLIENT-BLACK-${Date.now()}`);
+      setField('source_node', 'client.evidence.check');
+      setField('target_node', 'client.payment.release');
+      setField('authority_present', true);
+      setField('authority_scope_valid', true);
+      setField('standing_active', true);
+      setField('evidence_present', false);
+      setField('evidence_sufficient', false);
+      setField('custody_preserved', false);
+      setField('refusal_condition_active', false);
+      setField('revalidation_required', false);
+      setField('receipt_available', false);
+      setField('replay_available', false);
+      setField('notes', 'Client-entered black path: movement lacks durable evidence, receipt, custody, and replay basis.');
+    }
+
+    function presetRefusal() {
+      setField('movement_id', `CLIENT-REFUSE-${Date.now()}`);
+      setField('source_node', 'client.override');
+      setField('target_node', 'client.escalation');
+      setField('authority_present', false);
+      setField('authority_scope_valid', false);
+      setField('standing_active', false);
+      setField('evidence_present', true);
+      setField('evidence_sufficient', true);
+      setField('custody_preserved', true);
+      setField('refusal_condition_active', true);
+      setField('revalidation_required', false);
+      setField('receipt_available', true);
+      setField('replay_available', true);
+      setField('notes', 'Client-entered refusal path: active refusal and invalid standing.');
+    }
+
     function updateMetrics(summary) {
       document.getElementById('m-total').textContent = summary.total_movements ?? 0;
       document.getElementById('m-admit').textContent = summary.admit ?? 0;
@@ -190,12 +276,12 @@
         <div class="node"><strong>${edge.from}</strong><br><small>source</small></div>
         <div class="edge ${colorClass(edge.color)}">${edge.verdict}<br>${edge.id}</div>
         <div class="node"><strong>${edge.to}</strong><br><small class="${colorClass(edge.color)}">${edge.color}</small></div>
-      `).join('');
+      `).join('') || 'No current graph edges yet.';
     }
 
     function renderReceipts(items) {
       if (!items.length) {
-        receiptsEl.textContent = 'No receipts stored yet. Reset sandbox first.';
+        receiptsEl.textContent = 'No receipts stored yet. Reset sandbox or submit a movement first.';
         return;
       }
       receiptsEl.innerHTML = items.map(r => `
@@ -223,9 +309,20 @@
       try {
         const data = await api('/receipts');
         out.textContent = `Protected access OK. Receipt count: ${data.items.length}`;
-      } catch (err) {
-        out.textContent = err.message;
-      }
+      } catch (err) { out.textContent = err.message; }
+    }
+
+    async function submitMovement(){
+      try {
+        const receipt = await api('/movements/assess', {
+          method:'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(movementPayload())
+        });
+        show(receipt);
+        await loadReceipts();
+        await loadCurrentGraph();
+      } catch (err) { out.textContent = err.message; }
     }
 
     async function resetSandbox(){
@@ -241,6 +338,14 @@
     async function loadGraph(){
       try {
         const data = await api('/exposures/demo');
+        renderGraph(data);
+        show(data);
+      } catch (err) { out.textContent = err.message; }
+    }
+
+    async function loadCurrentGraph(){
+      try {
+        const data = await api('/exposures/current');
         renderGraph(data);
         show(data);
       } catch (err) { out.textContent = err.message; }
