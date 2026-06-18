@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.env
+.DS_Store
+*.zip
+*.log
+local_artifacts/
+client_materials/
+private_notes/
