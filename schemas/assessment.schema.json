@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://elyria.systems/schemas/assessment.schema.json",
+  "title": "Consequence Movement Assessment",
+  "type": "object",
+  "required": [
+    "movement_id",
+    "authority_present",
+    "authority_scope_valid",
+    "standing_active",
+    "evidence_present",
+    "evidence_sufficient",
+    "custody_preserved",
+    "refusal_condition_active",
+    "revalidation_required",
+    "receipt_available",
+    "replay_available"
+  ],
+  "properties": {
+    "movement_id": {
+      "type": "string"
+    },
+    "authority_present": {
+      "type": "boolean"
+    },
+    "authority_scope_valid": {
+      "type": "boolean"
+    },
+    "standing_active": {
+      "type": "boolean"
+    },
+    "evidence_present": {
+      "type": "boolean"
+    },
+    "evidence_sufficient": {
+      "type": "boolean"
+    },
+    "custody_preserved": {
+      "type": "boolean"
+    },
+    "refusal_condition_active": {
+      "type": "boolean"
+    },
+    "revalidation_required": {
+      "type": "boolean"
+    },
+    "receipt_available": {
+      "type": "boolean"
+    },
+    "replay_available": {
+      "type": "boolean"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}
