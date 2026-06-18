@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Elyria Consequence Twin Sandbox</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, system-ui, Arial, sans-serif; background: #061018; color: #e8f8ff; }
+    body { margin: 0; background: radial-gradient(circle at top, #123247 0%, #061018 55%, #02050a 100%); }
+    header { padding: 42px 6vw 24px; border-bottom: 1px solid rgba(122, 238, 255, .28); }
+    h1 { margin: 0 0 8px; font-size: clamp(32px, 5vw, 64px); letter-spacing: .04em; }
+    .tag { color: #87f0ff; font-weight: 700; }
+    main { padding: 28px 6vw 60px; display: grid; gap: 24px; }
+    .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .card { background: rgba(6, 19, 31, .76); border: 1px solid rgba(122,238,255,.32); border-radius: 16px; padding: 18px; box-shadow: 0 0 32px rgba(0,220,255,.08); }
+    button { background: #79efff; color: #021018; border: 0; border-radius: 10px; padding: 12px 16px; font-weight: 800; cursor: pointer; margin-right: 8px; }
+    pre { overflow: auto; background: #02070c; border: 1px solid rgba(122,238,255,.22); border-radius: 12px; padding: 14px; max-height: 420px; }
+    .green { color: #48ff9a; } .yellow { color: #ffe66d; } .red { color: #ff6c6c; } .black { color: #d6e2f2; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="tag">ELYRIA CONSEQUENCE TWIN</div>
+    <h1>Sandbox: consequence admission before execution binds.</h1>
+    <p>Run a demo graph, reset sample receipts, and verify replay from the local API.</p>
+  </header>
+  <main>
+    <section class="grid">
+      <div class="card"><h2>Green</h2><p class="green">ADMIT: consequence may bind.</p></div>
+      <div class="card"><h2>Yellow</h2><p class="yellow">HOLD: missing proof.</p></div>
+      <div class="card"><h2>Red</h2><p class="red">REFUSE: blocked movement.</p></div>
+      <div class="card"><h2>Black</h2><p class="black">NO_PROVABLE_ADMISSION: unprovable risk.</p></div>
+    </section>
+    <section class="card">
+      <button onclick="resetSandbox()">Reset Sandbox + Generate Receipts</button>
+      <button onclick="loadGraph()">Load Exposure Graph</button>
+      <button onclick="loadReceipts()">Load Receipts</button>
+    </section>
+    <section class="card">
+      <h2>Output</h2>
+      <pre id="out">Ready.</pre>
+    </section>
+  </main>
+  <script>
+    const out = document.getElementById('out');
+    async function show(url, options) {
+      const res = await fetch(url, options);
+      const data = await res.json();
+      out.textContent = JSON.stringify(data, null, 2);
+    }
+    function resetSandbox(){ show('/sandbox/reset', {method:'POST'}); }
+    function loadGraph(){ show('/exposures/demo'); }
+    function loadReceipts(){ show('/receipts'); }
+  </script>
+</body>
+</html>
