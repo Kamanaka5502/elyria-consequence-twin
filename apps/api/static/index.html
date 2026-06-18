@@ -5,22 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Elyria Consequence Twin Executive Demo</title>
   <style>
-    :root {
-      color-scheme: dark;
-      font-family: Inter, system-ui, Arial, sans-serif;
-      background: #061018;
-      color: #e8f8ff;
-      --panel: rgba(6, 19, 31, .78);
-      --line: rgba(122,238,255,.34);
-      --cyan: #79efff;
-      --green: #48ff9a;
-      --yellow: #ffe66d;
-      --red: #ff6c6c;
-      --black: #d6e2f2;
-    }
+    :root { color-scheme: dark; font-family: Inter, system-ui, Arial, sans-serif; background: #061018; color: #e8f8ff; --panel: rgba(6,19,31,.78); --line: rgba(122,238,255,.34); --cyan: #79efff; --green: #48ff9a; --yellow: #ffe66d; --red: #ff6c6c; --black: #d6e2f2; }
     * { box-sizing: border-box; }
     body { margin: 0; background: radial-gradient(circle at top, #123247 0%, #061018 55%, #02050a 100%); }
-    header { padding: 42px 6vw 26px; border-bottom: 1px solid rgba(122, 238, 255, .28); }
+    header { padding: 42px 6vw 26px; border-bottom: 1px solid rgba(122,238,255,.28); }
     h1 { margin: 0 0 10px; font-size: clamp(34px, 5.4vw, 72px); letter-spacing: .04em; line-height: 1.08; }
     h2, h3 { margin-top: 0; }
     label { display: grid; gap: 6px; color: #cdeeff; font-weight: 800; }
@@ -32,14 +20,14 @@
     .card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px; box-shadow: 0 0 32px rgba(0,220,255,.08); }
     .metric { min-height: 136px; }
     .metric .num { font-size: 44px; font-weight: 950; letter-spacing: .03em; margin: 8px 0; }
-    .metric p { margin: 0; color: #cdeeff; }
     button { background: var(--cyan); color: #021018; border: 0; border-radius: 10px; padding: 12px 16px; font-weight: 900; cursor: pointer; margin: 6px 8px 6px 0; }
     button.secondary { background: #10283a; color: var(--cyan); border: 1px solid var(--line); }
     button.danger { background: #371217; color: #ff9aa4; border: 1px solid rgba(255,108,108,.58); }
     input, select, textarea { width: 100%; background: #02070c; color: #e8f8ff; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
     #token-input { width: min(520px, 100%); margin: 6px 8px 6px 0; }
     textarea { min-height: 84px; resize: vertical; }
-    pre { overflow: auto; background: #02070c; border: 1px solid rgba(122,238,255,.22); border-radius: 12px; padding: 14px; max-height: 420px; }
+    #evidence_items_json { min-height: 220px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+    pre { overflow: auto; background: #02070c; border: 1px solid rgba(122,238,255,.22); border-radius: 12px; padding: 14px; max-height: 460px; }
     .green { color: var(--green); } .yellow { color: var(--yellow); } .red { color: var(--red); } .black { color: var(--black); }
     .warning { border-color: rgba(255,108,108,.58); background: linear-gradient(135deg, rgba(77,10,14,.66), rgba(6,19,31,.76)); display: none; }
     .warning strong { color: var(--red); }
@@ -50,11 +38,11 @@
     .auth-help { color: #cdeeff; margin: 8px 0 0; }
     .graph-wrap { overflow-x: auto; }
     .graph { min-width: 860px; display: grid; grid-template-columns: 1fr 120px 1fr; gap: 18px; align-items: center; }
-    .node { border: 1px solid var(--line); border-radius: 14px; padding: 14px; background: rgba(2, 9, 15, .88); margin: 12px 0; }
+    .node { border: 1px solid var(--line); border-radius: 14px; padding: 14px; background: rgba(2,9,15,.88); margin: 12px 0; }
     .edge { border-radius: 999px; padding: 10px 12px; text-align: center; font-size: 12px; font-weight: 900; background: rgba(255,255,255,.05); border: 1px solid var(--line); }
     .edge.green { border-color: var(--green); } .edge.yellow { border-color: var(--yellow); } .edge.red { border-color: var(--red); } .edge.black { border-color: var(--black); }
     .receipt-list { display: grid; gap: 14px; }
-    .receipt { border: 1px solid var(--line); border-left-width: 6px; border-radius: 14px; padding: 14px; background: rgba(2, 9, 15, .82); }
+    .receipt { border: 1px solid var(--line); border-left-width: 6px; border-radius: 14px; padding: 14px; background: rgba(2,9,15,.82); }
     .receipt.green { border-left-color: var(--green); } .receipt.yellow { border-left-color: var(--yellow); } .receipt.red { border-left-color: var(--red); } .receipt.black { border-left-color: var(--black); }
     .receipt code { color: var(--cyan); }
     .reason { margin: 6px 0; color: #d6edf8; }
@@ -66,7 +54,7 @@
   <header>
     <div class="tag">ELYRIA CONSEQUENCE TWIN</div>
     <h1>Executive demo: consequence admission before execution binds.</h1>
-    <p class="lede">A live sandbox for classifying consequence-bearing movement, emitting receipts, replaying verdict basis, and exposing black-path execution risk before action becomes operationally real.</p>
+    <p class="lede">A live sandbox for classifying consequence-bearing movement, attaching structured evidence references, emitting receipts, replaying verdict basis, and exposing black-path execution risk before action becomes operationally real.</p>
   </header>
   <main>
     <section class="card">
@@ -85,7 +73,7 @@
 
     <section class="card">
       <h2>Client Movement Intake</h2>
-      <p class="auth-help">Enter a movement, submit it into the consequence twin, and receive a signed admission receipt with graph impact.</p>
+      <p class="auth-help">Enter a movement, attach evidence references, submit it into the consequence twin, and receive a signed admission receipt with graph impact.</p>
       <div class="form-grid">
         <label>Movement ID<input id="movement_id" value="CLIENT-001" /></label>
         <label>Source Node<input id="source_node" value="client.workflow" /></label>
@@ -102,8 +90,24 @@
         <label>Replay Available<select id="replay_available"><option value="true">true</option><option value="false">false</option></select></label>
       </div>
       <label>Notes<textarea id="notes">Client-entered movement.</textarea></label>
+      <h3>Evidence Attachment Layer</h3>
+      <p class="auth-help">Structured evidence is included in the original input and summarized into the signed receipt envelope.</p>
+      <label>Evidence Items JSON<textarea id="evidence_items_json">[
+  {
+    "evidence_id": "EV-CLIENT-001",
+    "evidence_type": "policy_record",
+    "source_system": "client.governance.registry",
+    "custody_owner": "operations.owner",
+    "hash_reference": "sha256:client-demo-reference",
+    "required": true,
+    "status": "accepted",
+    "notes": "Required evidence reference for this movement."
+  }
+]</textarea></label>
       <button onclick="submitMovement()">Submit Movement + Emit Receipt</button>
       <button class="secondary" onclick="loadCurrentGraph()">Load Current Graph</button>
+      <button class="secondary" onclick="presetAcceptedEvidence()">Preset Accepted Evidence</button>
+      <button class="secondary" onclick="presetMissingEvidence()">Preset Missing Evidence</button>
       <button class="secondary" onclick="presetBlackPath()">Preset Black Path</button>
       <button class="secondary" onclick="presetRefusal()">Preset Refusal</button>
     </section>
@@ -158,38 +162,11 @@
     let latestProof = null;
 
     const colorClass = color => ['green','yellow','red','black'].includes(color) ? color : 'black';
-    const formFields = [
-      'movement_id','source_node','target_node','authority_present','authority_scope_valid','standing_active','evidence_present','evidence_sufficient','custody_preserved','refusal_condition_active','revalidation_required','receipt_available','replay_available','notes'
-    ];
-
     function savedToken() { return localStorage.getItem(TOKEN_KEY) || ''; }
-
-    function authHeaders() {
-      const token = savedToken();
-      return token ? {'Authorization': `Bearer ${token}`} : {};
-    }
-
-    function markAuthState() {
-      const token = savedToken();
-      authPill.textContent = token ? 'Auth: token stored locally' : 'Auth: token not stored';
-      authPill.className = token ? 'pill open' : 'pill locked';
-      tokenInput.value = token;
-    }
-
-    function saveToken() {
-      const token = tokenInput.value.trim();
-      if (!token) { clearToken(); return; }
-      localStorage.setItem(TOKEN_KEY, token);
-      markAuthState();
-      out.textContent = 'Client token saved locally for this browser.';
-    }
-
-    function clearToken() {
-      localStorage.removeItem(TOKEN_KEY);
-      tokenInput.value = '';
-      markAuthState();
-      out.textContent = 'Client token cleared.';
-    }
+    function authHeaders() { const token = savedToken(); return token ? {'Authorization': `Bearer ${token}`} : {}; }
+    function markAuthState() { const token = savedToken(); authPill.textContent = token ? 'Auth: token stored locally' : 'Auth: token not stored'; authPill.className = token ? 'pill open' : 'pill locked'; tokenInput.value = token; }
+    function saveToken() { const token = tokenInput.value.trim(); if (!token) { clearToken(); return; } localStorage.setItem(TOKEN_KEY, token); markAuthState(); out.textContent = 'Client token saved locally for this browser.'; }
+    function clearToken() { localStorage.removeItem(TOKEN_KEY); tokenInput.value = ''; markAuthState(); out.textContent = 'Client token cleared.'; }
 
     async function api(url, options = {}) {
       const headers = {...authHeaders(), ...(options.headers || {})};
@@ -197,17 +174,20 @@
       const text = await res.text();
       let data;
       try { data = text ? JSON.parse(text) : {}; } catch { data = {raw: text}; }
-      if (!res.ok) {
-        const detail = data.detail || `${res.status} ${res.statusText}`;
-        throw new Error(`${res.status} ${res.statusText}: ${detail}`);
-      }
+      if (!res.ok) { const detail = data.detail || `${res.status} ${res.statusText}`; throw new Error(`${res.status} ${res.statusText}: ${detail}`); }
       return data;
     }
 
     function show(data) { out.textContent = JSON.stringify(data, null, 2); }
-
     function setField(id, value) { document.getElementById(id).value = String(value); }
     function boolValue(id) { return document.getElementById(id).value === 'true'; }
+    function evidenceItems() {
+      const raw = document.getElementById('evidence_items_json').value.trim();
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) throw new Error('Evidence Items JSON must be an array.');
+      return parsed;
+    }
 
     function movementPayload() {
       return {
@@ -224,178 +204,50 @@
         revalidation_required: boolValue('revalidation_required'),
         receipt_available: boolValue('receipt_available'),
         replay_available: boolValue('replay_available'),
-        notes: document.getElementById('notes').value.trim()
+        notes: document.getElementById('notes').value.trim(),
+        evidence_items: evidenceItems()
       };
     }
 
+    function presetAcceptedEvidence() {
+      setField('evidence_present', true); setField('evidence_sufficient', true); setField('custody_preserved', true);
+      setField('evidence_items_json', JSON.stringify([{evidence_id:'EV-CLIENT-001', evidence_type:'policy_record', source_system:'client.governance.registry', custody_owner:'operations.owner', hash_reference:'sha256:client-demo-reference', required:true, status:'accepted', notes:'Required evidence reference for this movement.'}], null, 2));
+    }
+
+    function presetMissingEvidence() {
+      setField('evidence_present', false); setField('evidence_sufficient', false); setField('custody_preserved', false);
+      setField('evidence_items_json', JSON.stringify([{evidence_id:'EV-MISSING-001', evidence_type:'approval_record', source_system:'client.approvals', custody_owner:'', hash_reference:'', required:true, status:'missing', notes:'Required evidence has not been attached.'}], null, 2));
+    }
+
     function presetBlackPath() {
-      setField('movement_id', `CLIENT-BLACK-${Date.now()}`);
-      setField('source_node', 'client.evidence.check');
-      setField('target_node', 'client.payment.release');
-      setField('authority_present', true);
-      setField('authority_scope_valid', true);
-      setField('standing_active', true);
-      setField('evidence_present', false);
-      setField('evidence_sufficient', false);
-      setField('custody_preserved', false);
-      setField('refusal_condition_active', false);
-      setField('revalidation_required', false);
-      setField('receipt_available', false);
-      setField('replay_available', false);
-      setField('notes', 'Client-entered black path: movement lacks durable evidence, receipt, custody, and replay basis.');
+      setField('movement_id', `CLIENT-BLACK-${Date.now()}`); setField('source_node', 'client.evidence.check'); setField('target_node', 'client.payment.release');
+      setField('authority_present', true); setField('authority_scope_valid', true); setField('standing_active', true); setField('refusal_condition_active', false); setField('revalidation_required', false); setField('receipt_available', false); setField('replay_available', false); setField('notes', 'Client-entered black path: movement lacks durable evidence, receipt, custody, and replay basis.');
+      presetMissingEvidence();
     }
 
     function presetRefusal() {
-      setField('movement_id', `CLIENT-REFUSE-${Date.now()}`);
-      setField('source_node', 'client.override');
-      setField('target_node', 'client.escalation');
-      setField('authority_present', false);
-      setField('authority_scope_valid', false);
-      setField('standing_active', false);
-      setField('evidence_present', true);
-      setField('evidence_sufficient', true);
-      setField('custody_preserved', true);
-      setField('refusal_condition_active', true);
-      setField('revalidation_required', false);
-      setField('receipt_available', true);
-      setField('replay_available', true);
-      setField('notes', 'Client-entered refusal path: active refusal and invalid standing.');
+      setField('movement_id', `CLIENT-REFUSE-${Date.now()}`); setField('source_node', 'client.override'); setField('target_node', 'client.escalation');
+      setField('authority_present', false); setField('authority_scope_valid', false); setField('standing_active', false); setField('evidence_present', true); setField('evidence_sufficient', true); setField('custody_preserved', true); setField('refusal_condition_active', true); setField('revalidation_required', false); setField('receipt_available', true); setField('replay_available', true); setField('notes', 'Client-entered refusal path: active refusal and invalid standing.'); presetAcceptedEvidence();
     }
 
-    function updateMetrics(summary) {
-      document.getElementById('m-total').textContent = summary.total_movements ?? 0;
-      document.getElementById('m-admit').textContent = summary.admit ?? 0;
-      document.getElementById('m-refuse').textContent = summary.refuse ?? 0;
-      document.getElementById('m-black').textContent = summary.black_paths ?? 0;
-      document.getElementById('warning').style.display = (summary.black_paths ?? 0) > 0 ? 'block' : 'none';
-    }
+    function updateMetrics(summary) { document.getElementById('m-total').textContent = summary.total_movements ?? 0; document.getElementById('m-admit').textContent = summary.admit ?? 0; document.getElementById('m-refuse').textContent = summary.refuse ?? 0; document.getElementById('m-black').textContent = summary.black_paths ?? 0; document.getElementById('warning').style.display = (summary.black_paths ?? 0) > 0 ? 'block' : 'none'; }
+    function renderGraph(graph) { updateMetrics(graph.summary); graphEl.innerHTML = graph.edges.map(edge => `<div class="node"><strong>${edge.from}</strong><br><small>source</small></div><div class="edge ${colorClass(edge.color)}">${edge.verdict}<br>${edge.id}</div><div class="node"><strong>${edge.to}</strong><br><small class="${colorClass(edge.color)}">${edge.color}</small></div>`).join('') || 'No current graph edges yet.'; }
+    function evidenceLine(r) { const s = r.evidence_summary; return s ? `<p>Evidence: <code>${s.status}</code> · required ${s.required} · accepted ${s.accepted} · missing ${s.missing} · custody gaps ${s.custody_gaps}</p>` : ''; }
+    function renderReceipts(items) { if (!items.length) { receiptsEl.textContent = 'No receipts stored yet. Reset sandbox or submit a movement first.'; return; } receiptsEl.innerHTML = items.map(r => `<div class="receipt ${colorClass(r.color)}"><h3>${r.verdict} · ${r.movement_id}</h3><p><code>${r.receipt_id}</code></p><p>Color: <span class="${colorClass(r.color)}">${r.color}</span></p><p>Signature: <code>${r.signature_algorithm || 'unsigned'}</code></p>${evidenceLine(r)}${r.reasons.map(reason => `<div class="reason">• ${reason}</div>`).join('')}<button onclick="replayReceipt('${r.receipt_id}')">Replay Receipt</button></div>`).join(''); }
 
-    function renderGraph(graph) {
-      updateMetrics(graph.summary);
-      graphEl.innerHTML = graph.edges.map(edge => `
-        <div class="node"><strong>${edge.from}</strong><br><small>source</small></div>
-        <div class="edge ${colorClass(edge.color)}">${edge.verdict}<br>${edge.id}</div>
-        <div class="node"><strong>${edge.to}</strong><br><small class="${colorClass(edge.color)}">${edge.color}</small></div>
-      `).join('') || 'No current graph edges yet.';
-    }
-
-    function renderReceipts(items) {
-      if (!items.length) {
-        receiptsEl.textContent = 'No receipts stored yet. Reset sandbox or submit a movement first.';
-        return;
-      }
-      receiptsEl.innerHTML = items.map(r => `
-        <div class="receipt ${colorClass(r.color)}">
-          <h3>${r.verdict} · ${r.movement_id}</h3>
-          <p><code>${r.receipt_id}</code></p>
-          <p>Color: <span class="${colorClass(r.color)}">${r.color}</span></p>
-          <p>Signature: <code>${r.signature_algorithm || 'unsigned'}</code></p>
-          ${r.reasons.map(reason => `<div class="reason">• ${reason}</div>`).join('')}
-          <button onclick="replayReceipt('${r.receipt_id}')">Replay Receipt</button>
-        </div>
-      `).join('');
-    }
-
-    async function refreshHealth() {
-      const data = await api('/healthz');
-      modePill.textContent = `Mode: ${data.mode}`;
-      modePill.className = data.mode === 'demo' ? 'pill open' : 'pill locked';
-      storagePill.textContent = `Storage: ${data.storage_backend}`;
-      storagePill.className = 'pill open';
-      return data;
-    }
-
-    async function testProtectedAccess() {
-      try {
-        const data = await api('/receipts');
-        out.textContent = `Protected access OK. Receipt count: ${data.items.length}`;
-      } catch (err) { out.textContent = err.message; }
-    }
-
-    async function submitMovement(){
-      try {
-        const receipt = await api('/movements/assess', {
-          method:'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(movementPayload())
-        });
-        show(receipt);
-        await loadReceipts();
-        await loadCurrentGraph();
-      } catch (err) { out.textContent = err.message; }
-    }
-
-    async function resetSandbox(){
-      try {
-        const data = await api('/sandbox/reset', {method:'POST'});
-        latestProof = data;
-        renderGraph(data.graph);
-        renderReceipts(data.receipts);
-        show(data);
-      } catch (err) { out.textContent = err.message; }
-    }
-
-    async function loadGraph(){
-      try {
-        const data = await api('/exposures/demo');
-        renderGraph(data);
-        show(data);
-      } catch (err) { out.textContent = err.message; }
-    }
-
-    async function loadCurrentGraph(){
-      try {
-        const data = await api('/exposures/current');
-        renderGraph(data);
-        show(data);
-      } catch (err) { out.textContent = err.message; }
-    }
-
-    async function loadReceipts(){
-      try {
-        const data = await api('/receipts');
-        renderReceipts(data.items);
-        show(data);
-      } catch (err) { out.textContent = err.message; }
-    }
-
-    async function replayReceipt(receiptId){
-      try {
-        const data = await api(`/receipts/${receiptId}/replay`, {method:'POST'});
-        show(data);
-        alert(data.verdict_matches && data.input_hash_matches && data.signature_matches ? 'Replay verified.' : 'Replay mismatch detected.');
-      } catch (err) { out.textContent = err.message; }
-    }
-
-    async function loadRawProof(){
-      try {
-        const data = await api('/demo/proof');
-        latestProof = data;
-        renderGraph(data.graph);
-        renderReceipts(data.receipts);
-        show(data);
-      } catch (err) { out.textContent = err.message; }
-    }
-
-    async function exportProof(){
-      try {
-        const data = latestProof || await api('/demo/proof');
-        const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'elyria-consequence-twin-demo-proof.json';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
-      } catch (err) { out.textContent = err.message; }
-    }
+    async function refreshHealth() { const data = await api('/healthz'); modePill.textContent = `Mode: ${data.mode}`; modePill.className = data.mode === 'demo' ? 'pill open' : 'pill locked'; storagePill.textContent = `Storage: ${data.storage_backend}`; storagePill.className = 'pill open'; return data; }
+    async function testProtectedAccess() { try { const data = await api('/receipts'); out.textContent = `Protected access OK. Receipt count: ${data.items.length}`; } catch (err) { out.textContent = err.message; } }
+    async function submitMovement(){ try { const receipt = await api('/movements/assess', {method:'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(movementPayload())}); show(receipt); await loadReceipts(); await loadCurrentGraph(); } catch (err) { out.textContent = err.message; } }
+    async function resetSandbox(){ try { const data = await api('/sandbox/reset', {method:'POST'}); latestProof = data; renderGraph(data.graph); renderReceipts(data.receipts); show(data); } catch (err) { out.textContent = err.message; } }
+    async function loadGraph(){ try { const data = await api('/exposures/demo'); renderGraph(data); show(data); } catch (err) { out.textContent = err.message; } }
+    async function loadCurrentGraph(){ try { const data = await api('/exposures/current'); renderGraph(data); show(data); } catch (err) { out.textContent = err.message; } }
+    async function loadReceipts(){ try { const data = await api('/receipts'); renderReceipts(data.items); show(data); } catch (err) { out.textContent = err.message; } }
+    async function replayReceipt(receiptId){ try { const data = await api(`/receipts/${receiptId}/replay`, {method:'POST'}); show(data); alert(data.verdict_matches && data.input_hash_matches && data.signature_matches && data.evidence_summary_matches ? 'Replay verified.' : 'Replay mismatch detected.'); } catch (err) { out.textContent = err.message; } }
+    async function loadRawProof(){ try { const data = await api('/demo/proof'); latestProof = data; renderGraph(data.graph); renderReceipts(data.receipts); show(data); } catch (err) { out.textContent = err.message; } }
+    async function exportProof(){ try { const data = latestProof || await api('/demo/proof'); const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'elyria-consequence-twin-demo-proof.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); } catch (err) { out.textContent = err.message; } }
 
     markAuthState();
-    refreshHealth()
-      .then(() => loadGraph())
-      .catch(err => out.textContent = err.message);
+    refreshHealth().then(() => loadGraph()).catch(err => out.textContent = err.message);
   </script>
 </body>
 </html>
