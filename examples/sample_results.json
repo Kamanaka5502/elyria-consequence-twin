@@ -1,0 +1,33 @@
+[
+  {
+    "movement_id": "MOVE-001",
+    "verdict": "ADMIT",
+    "color": "green",
+    "reasons": [
+      "all required admission dimensions hold"
+    ]
+  },
+  {
+    "movement_id": "MOVE-002",
+    "verdict": "NO_PROVABLE_ADMISSION",
+    "color": "black",
+    "reasons": [
+      "consequence path lacks durable receipt or replay proof",
+      "authority appears to admit movement without required evidence",
+      "required evidence missing before bind",
+      "custody not preserved",
+      "receipt unavailable",
+      "replay unavailable"
+    ]
+  },
+  {
+    "movement_id": "MOVE-003",
+    "verdict": "REFUSE",
+    "color": "red",
+    "reasons": [
+      "active refusal condition blocks consequence movement",
+      "authority absent",
+      "standing inactive or expired"
+    ]
+  }
+]
