@@ -1,0 +1,2 @@
+exposure_id,ai_or_workflow_action,downstream_consequence,human_or_system_handoff,admission_gap,exposure_level,recommended_control
+AX-001,AI recommendation generated,customer escalation priority changes,operator approval,evidence and model version not attached,high,require admission receipt before escalation update
