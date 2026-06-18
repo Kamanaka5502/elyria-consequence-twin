@@ -1,0 +1,2 @@
+gap_id,movement_id,required_evidence,current_state,gap_type,risk,required_fix,owner
+EG-001,MOVE-001,model version and source data reference,not captured at approval,missing before bind,recommendation cannot be replayed,capture evidence before approval,client owner
