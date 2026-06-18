@@ -12,6 +12,28 @@ It answers a stricter operational question than ordinary workflow, risk, GRC, pr
 
 > Can this action become real right now, under valid authority, active standing, sufficient evidence, preserved custody, refusal logic, receipt, and replay proof?
 
+## Claim Boundary
+
+Elyria is universal at the architecture layer.
+
+This repository is bounded at the proof-surface layer.
+
+Correct claim:
+
+```text
+Elyria Consequence Twin is a buyer-facing runtime proof surface within Elyria's universal consequence-governance architecture.
+```
+
+See:
+
+```text
+CLAIM_BOUNDARY.md
+REVIEWER_QUICKSTART.md
+BUYER_READOUT.md
+PROOF_OR_DEMO_PATH.md
+LIMITATIONS.md
+```
+
 ## Current Runtime Status
 
 ```text
@@ -185,6 +207,8 @@ Do not commit or screenshot real tokens, signing secrets, client evidence, priva
 docs/10_executive_demo_script.md
 docs/11_buyer_one_page.md
 docs/12_demo_screenshot_and_proof_safety.md
+docs/13_public_product_page_copy.md
+docs/14_screenshot_capture_plan.md
 examples/public_demo_proof_packet.example.json
 ```
 
