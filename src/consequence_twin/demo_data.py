@@ -1,0 +1,50 @@
+DEMO_ASSESSMENTS = [
+    {
+        "movement_id": "MOVE-001",
+        "source_node": "ai.recommendation",
+        "target_node": "operator.approval",
+        "authority_present": True,
+        "authority_scope_valid": True,
+        "standing_active": True,
+        "evidence_present": True,
+        "evidence_sufficient": True,
+        "custody_preserved": True,
+        "refusal_condition_active": False,
+        "revalidation_required": False,
+        "receipt_available": True,
+        "replay_available": True,
+        "notes": "Clean admitted movement."
+    },
+    {
+        "movement_id": "MOVE-002",
+        "source_node": "evidence.check",
+        "target_node": "payment.release",
+        "authority_present": True,
+        "authority_scope_valid": True,
+        "standing_active": True,
+        "evidence_present": False,
+        "evidence_sufficient": False,
+        "custody_preserved": False,
+        "refusal_condition_active": False,
+        "revalidation_required": False,
+        "receipt_available": False,
+        "replay_available": False,
+        "notes": "Black path: movement can attempt to bind without evidence, receipt, or replay."
+    },
+    {
+        "movement_id": "MOVE-003",
+        "source_node": "unscoped.override",
+        "target_node": "customer.escalation",
+        "authority_present": False,
+        "authority_scope_valid": False,
+        "standing_active": False,
+        "evidence_present": True,
+        "evidence_sufficient": True,
+        "custody_preserved": True,
+        "refusal_condition_active": True,
+        "revalidation_required": False,
+        "receipt_available": True,
+        "replay_available": True,
+        "notes": "Hard refused movement."
+    }
+]
