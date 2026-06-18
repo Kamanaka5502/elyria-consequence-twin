@@ -1,0 +1,2 @@
+movement_id,source_node,target_node,consequence_type,authority_required,evidence_required,custody_requirement,refusal_condition,revalidation_trigger,receipt_required,replay_required
+MOVE-001,AI recommendation,operator approval,customer-impacting recommendation,named approver within scope,input evidence + model version + rationale,preserved from model output to approval,missing authority or missing evidence,model version/policy/customer status change,yes,yes
