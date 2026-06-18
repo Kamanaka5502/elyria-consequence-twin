@@ -19,12 +19,23 @@ STATIC_DIR = APP_DIR / "static"
 
 app = FastAPI(
     title="Elyria Consequence Twin API",
-    version="0.6.0",
+    version="0.7.0",
     description="Admission API for consequence-bearing execution.",
 )
 
 if STATIC_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+
+
+class EvidenceAttachment(BaseModel):
+    evidence_id: str = Field(..., examples=["EV-001"])
+    evidence_type: str = Field(..., examples=["policy_record"])
+    source_system: str | None = None
+    custody_owner: str | None = None
+    hash_reference: str | None = None
+    required: bool = True
+    status: str = Field("accepted", examples=["accepted", "missing", "insufficient"])
+    notes: str | None = None
 
 
 class MovementAssessment(BaseModel):
@@ -42,6 +53,7 @@ class MovementAssessment(BaseModel):
     receipt_available: bool
     replay_available: bool
     notes: str | None = None
+    evidence_items: List[EvidenceAttachment] = Field(default_factory=list)
 
 
 def db_path() -> str:
@@ -76,7 +88,7 @@ def healthz() -> Dict[str, str]:
     return {
         "status": "ok",
         "service": "elyria-consequence-twin",
-        "version": "0.6.0",
+        "version": "0.7.0",
         "mode": settings.mode,
         "storage_backend": settings.storage_backend,
     }
@@ -125,7 +137,7 @@ def demo_proof_packet() -> Dict[str, Any]:
         "service": healthz(),
         "graph": current_exposure_graph(),
         "receipts": receipts,
-        "proof_claim": "Elyria Consequence Twin classifies consequence-bearing movement, emits signed receipts, preserves replay basis, and exposes black-path execution risk before consequence binds.",
+        "proof_claim": "Elyria Consequence Twin classifies consequence-bearing movement, attaches structured evidence references, emits signed receipts, preserves replay basis, and exposes black-path execution risk before consequence binds.",
     }
 
 
