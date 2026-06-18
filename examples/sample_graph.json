@@ -1,0 +1,64 @@
+{
+  "graph_id": "DEMO-GRAPH-001",
+  "nodes": [
+    {
+      "node_id": "N-001",
+      "name": "AI Recommendation",
+      "consequence_position": "recommends customer escalation priority",
+      "owner": "AI Operations",
+      "protected_effects": [
+        "customer priority change"
+      ]
+    },
+    {
+      "node_id": "N-002",
+      "name": "Operator Approval",
+      "consequence_position": "admits or refuses escalation movement",
+      "owner": "Operations Lead",
+      "protected_effects": [
+        "customer escalation update"
+      ]
+    },
+    {
+      "node_id": "N-003",
+      "name": "Customer Escalation",
+      "consequence_position": "changes customer handling consequence",
+      "owner": "Customer Operations",
+      "protected_effects": [
+        "service priority and resource allocation"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "movement_id": "MOVE-001",
+      "source_node": "N-001",
+      "target_node": "N-002",
+      "consequence_type": "approval handoff",
+      "authority_required": [
+        "operator approval within scope"
+      ],
+      "evidence_required": [
+        "model version",
+        "input record",
+        "recommendation rationale"
+      ],
+      "custody_required": [
+        "preserved model output to approval record"
+      ],
+      "refusal_conditions": [
+        "missing authority",
+        "missing evidence"
+      ],
+      "revalidation_triggers": [
+        "model version change",
+        "policy change",
+        "customer status change"
+      ],
+      "receipt_required": true,
+      "replay_required": true
+    }
+  ],
+  "assessments": [],
+  "summary": "Demo graph for consequence-bearing AI recommendation handoff."
+}
