@@ -2,7 +2,7 @@
 name = "elyria-consequence-twin"
 version = "0.1.0"
 description = "A digital twin scaffold for consequence-bearing execution diagnostics."
-authors = [{ name = "Samantha Revita-Wagner" }]
+authors = [{ name = "Samantha Revita" }]
 requires-python = ">=3.10"
 dependencies = []
 
