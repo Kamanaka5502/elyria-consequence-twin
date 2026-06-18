@@ -2,18 +2,22 @@
 
 ## This repo claims
 
-This repo demonstrates a bounded buyer-facing proof surface for Elyria's universal consequence-governance architecture.
+This repo demonstrates a bounded full-stack buyer-facing proof surface for Elyria's universal consequence-governance architecture.
 
 It proves that a consequence-bearing movement can be:
 
-- entered through a client-facing intake surface
+- entered through a client-facing dashboard
+- submitted through an API layer
 - evaluated against authority, standing, evidence, custody, refusal, receipt, and replay dimensions
 - classified into `ADMIT`, `HOLD`, `REFUSE`, or `NO_PROVABLE_ADMISSION`
 - attached to structured evidence references
+- summarized into an evidence basis
 - emitted as a signed receipt
+- stored in a local receipt store
 - replay-verified against the stored verdict basis
 - rendered into a current consequence exposure graph
 - exported as a proof packet
+- tested through a local reviewer path
 
 ## This repo does not claim
 
@@ -31,7 +35,27 @@ Elyria is universal at the architecture layer.
 
 This repository is bounded at the proof-surface layer.
 
-The public claim is conservative: this repo demonstrates one working consequence-admission sandbox within the larger Elyria consequence-governance architecture.
+The public claim is conservative: this repo demonstrates one full-stack consequence-admission sandbox within the larger Elyria consequence-governance architecture.
+
+## Full-stack boundary
+
+Full-stack means the repo contains a working local chain from interface to proof artifact:
+
+```text
+frontend dashboard
+API layer
+admission engine
+evidence summary layer
+signed receipt runtime
+local storage
+replay verifier
+exposure graph
+proof packet export
+tests
+buyer/reviewer documentation
+```
+
+Full-stack does not mean production certification, protected kernel disclosure, or substrate status.
 
 ## Core invariant
 
