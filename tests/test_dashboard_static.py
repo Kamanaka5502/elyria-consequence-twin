@@ -19,3 +19,11 @@ def test_dashboard_has_client_movement_intake():
     assert "submitMovement" in html
     assert "/movements/assess" in html
     assert "/exposures/current" in html
+
+
+def test_dashboard_has_evidence_attachment_layer():
+    html = DASHBOARD.read_text(encoding="utf-8")
+    assert "Evidence Attachment Layer" in html
+    assert "evidence_items_json" in html
+    assert "Preset Missing Evidence" in html
+    assert "evidence_summary" in html
