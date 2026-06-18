@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.responses import FileResponse
@@ -19,7 +19,7 @@ STATIC_DIR = APP_DIR / "static"
 
 app = FastAPI(
     title="Elyria Consequence Twin API",
-    version="0.4.0",
+    version="0.6.0",
     description="Admission API for consequence-bearing execution.",
 )
 
@@ -48,6 +48,20 @@ def db_path() -> str:
     return get_settings().db_path
 
 
+def payloads_from_receipts(receipts: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    return [item["original_input"] for item in receipts if "original_input" in item]
+
+
+def current_exposure_graph() -> Dict[str, Any]:
+    receipts = list_receipts(db_path(), limit=100)
+    payloads = payloads_from_receipts(receipts)
+    if not payloads:
+        return build_exposure_graph(DEMO_ASSESSMENTS)
+    graph = build_exposure_graph(payloads)
+    graph["graph_id"] = "CURRENT-GRAPH"
+    return graph
+
+
 @app.get("/")
 def dashboard() -> FileResponse:
     index = STATIC_DIR / "index.html"
@@ -62,6 +76,7 @@ def healthz() -> Dict[str, str]:
     return {
         "status": "ok",
         "service": "elyria-consequence-twin",
+        "version": "0.6.0",
         "mode": settings.mode,
         "storage_backend": settings.storage_backend,
     }
@@ -98,12 +113,17 @@ def demo_exposure_graph() -> Dict[str, Any]:
     return build_exposure_graph(DEMO_ASSESSMENTS)
 
 
+@app.get("/exposures/current", dependencies=[Depends(require_client_auth)])
+def stored_exposure_graph() -> Dict[str, Any]:
+    return current_exposure_graph()
+
+
 @app.get("/demo/proof", dependencies=[Depends(require_client_auth)])
 def demo_proof_packet() -> Dict[str, Any]:
     receipts = list_receipts(db_path(), limit=100)
     return {
         "service": healthz(),
-        "graph": build_exposure_graph(DEMO_ASSESSMENTS),
+        "graph": current_exposure_graph(),
         "receipts": receipts,
         "proof_claim": "Elyria Consequence Twin classifies consequence-bearing movement, emits signed receipts, preserves replay basis, and exposes black-path execution risk before consequence binds.",
     }
@@ -121,5 +141,5 @@ def sandbox_reset() -> Dict[str, Any]:
         "mode": settings.mode,
         "receipt_count": len(receipts),
         "receipts": receipts,
-        "graph": build_exposure_graph(DEMO_ASSESSMENTS),
+        "graph": current_exposure_graph(),
     }
