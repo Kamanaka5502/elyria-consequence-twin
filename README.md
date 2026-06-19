@@ -1,10 +1,10 @@
-# Elyria Consequence Twin
+# Elyria Admission Runtime
 
 <p align="center"><strong>Consequence Admission Before Execution Binds</strong></p>
 
 <p align="center">
-  ◈ Full-Stack Consequence Runtime &nbsp; │ &nbsp;
-  ◈ Evidence-Gated Admission &nbsp; │ &nbsp;
+  ◈ Full-Stack Admission Runtime &nbsp; │ &nbsp;
+  ◈ Evidence-Gated Verdicts &nbsp; │ &nbsp;
   ◈ Signed Receipts &nbsp; │ &nbsp;
   ◈ Replay Verification &nbsp; │ &nbsp;
   ◈ Black-Path Exposure
@@ -18,9 +18,9 @@
 
 ## ◈ Position
 
-Elyria Consequence Twin is a **full-stack consequence-governance runtime and commercial product scaffold** for consequence-bearing systems. It models whether a proposed movement may become operationally real before execution binds.
+Elyria Admission Runtime is a **full-stack consequence-admission runtime** for systems where action should not become operationally real without valid authority, active standing, sufficient evidence, preserved custody, deterministic verdicting, signed receipt, and replayable proof.
 
-This is not just a proof artifact. It is a runnable product surface with dashboard intake, API assessment, deterministic admission logic, structured evidence gating, signed receipts, local storage, replay verification, exposure graphing, and proof packet export.
+It is not a concept note and not only a proof artifact. It is a runnable public product layer with dashboard intake, API assessment, deterministic admission logic, structured evidence gating, signed receipts, local storage, replay verification, exposure graphing, and proof-packet export.
 
 It asks the stricter operational question:
 
@@ -29,20 +29,20 @@ It asks the stricter operational question:
 ## ◈ Current Claim
 
 ```text
-Elyria Consequence Twin is a full-stack consequence-admission runtime and buyer-facing product scaffold within Elyria's universal consequence-governance architecture.
+Elyria Admission Runtime is a full-stack consequence-admission runtime and bounded public product layer within Elyria's universal consequence-governance architecture.
 ```
 
 The architecture layer is universal. The public repo claim is bounded.
 
-This repository exposes the reviewable product/demo layer of the Consequence Twin. It does **not** expose protected Elyria / Veritas internals, claim substrate status, or claim production certification without security and customer-specific review.
+This repository exposes the reviewable product/runtime layer of Elyria Admission Runtime. It does **not** expose protected Elyria / Veritas internals, claim substrate status, or claim production certification without security and customer-specific review.
 
 ## ◈ Quickstart
 
 Run the full local reviewer path:
 
 ```bash
-git clone https://github.com/Kamanaka5502/elyria-consequence-twin.git
-cd elyria-consequence-twin
+git clone https://github.com/Kamanaka5502/elyria-admission-runtime.git
+cd elyria-admission-runtime
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
@@ -84,20 +84,20 @@ Tests pass locally.
 
 ## ◈ Container Install
 
-The repo can also run as an installable dashboard/API container.
+The runtime can also run as an installable dashboard/API container.
 
 Local container build:
 
 ```bash
-docker build -t elyria-consequence-twin:local .
-docker run --rm -p 8080:8080 elyria-consequence-twin:local
+docker build -t elyria-admission-runtime:local .
+docker run --rm -p 8080:8080 elyria-admission-runtime:local
 ```
 
 After the GitHub Container Registry package is published, reviewers can run:
 
 ```bash
-docker pull ghcr.io/kamanaka5502/elyria-consequence-twin:v0.8.1-public
-docker run --rm -p 8080:8080 ghcr.io/kamanaka5502/elyria-consequence-twin:v0.8.1-public
+docker pull ghcr.io/kamanaka5502/elyria-admission-runtime:v0.8.1-public
+docker run --rm -p 8080:8080 ghcr.io/kamanaka5502/elyria-admission-runtime:v0.8.1-public
 ```
 
 Open:
@@ -116,7 +116,7 @@ production use requires a separate written agreement
 
 ## ◈ Engine Flow
 
-The Consequence Twin evaluates whether movement may bind operational consequence. It does not wait for harm, drift, or audit discovery after the fact; it classifies movement before execution becomes real.
+Elyria Admission Runtime evaluates whether movement may bind operational consequence. It does not wait for harm, drift, or audit discovery after the fact; it classifies movement before execution becomes real.
 
 ```mermaid
 flowchart LR
@@ -346,7 +346,7 @@ Production deployment requires security review, secret management, enterprise au
 Correct production boundary:
 
 ```text
-Full-stack consequence runtime, not production certification.
+Full-stack admission runtime, not production certification.
 Universal architecture layer, bounded public repo claim.
 Samantha Revita / Elyria Systems.
 ```
