@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="assets/consequence-exposure-graph.svg" alt="Elyria Consequence Twin — Consequence Admission Before Execution Binds" width="100%" />
-</p>
-
 # Elyria Consequence Twin
 
 <p align="center"><strong>Consequence Admission Before Execution Binds</strong></p>
