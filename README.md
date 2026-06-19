@@ -119,6 +119,7 @@ production use requires a separate written agreement
 Elyria Admission Runtime evaluates whether movement may bind operational consequence. It does not wait for harm, drift, or audit discovery after the fact; it classifies movement before execution becomes real.
 
 ```mermaid
+%%{init: {"flowchart": {"nodeSpacing": 90, "rankSpacing": 110}, "themeVariables": {"fontSize": "18px"}} }%%
 flowchart LR
     A[Movement Intake] --> B[Authority Check]
     B --> C[Standing Check]
