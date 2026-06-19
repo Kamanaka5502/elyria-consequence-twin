@@ -4,7 +4,7 @@
 
 This file records the clean-machine review path for Elyria Admission Runtime.
 
-## Commands
+## Manual Fresh Clone Commands
 
 ```bash
 git clone https://github.com/Kamanaka5502/elyria-admission-runtime.git
@@ -39,8 +39,51 @@ PRODUCTION PREFLIGHT REVIEW MODE PASS
 RESULT: ELYRIA ADMISSION RUNTIME FULL VERIFY PASS
 ```
 
+## Hosted Fresh-Checkout Evidence
+
+GitHub Actions `ci #155` provides hosted fresh-checkout evidence.
+
+Recorded run evidence:
+
+```text
+workflow: ci
+run: #155
+commit: 0ba1635
+branch: main
+status: Success
+job: proof-gates — green
+artifact: verification-report
+```
+
+The workflow performs a clean GitHub-hosted checkout, installs the package, and runs:
+
+```bash
+python scripts/verify_all.py --report verification-report.json
+```
+
+The uploaded verification report is recorded in:
+
+```text
+verification-evidence/ci-155-verification-report.json
+verification-evidence/CI_155_SUMMARY.md
+```
+
+Report result:
+
+```text
+passed: true
+final_marker: RESULT: ELYRIA ADMISSION RUNTIME FULL VERIFY PASS
+unit tests: passed
+generate digest manifest: passed
+verify digest manifest: passed
+external verifier: passed
+production preflight review mode: passed
+skipped_tests: false
+```
+
 ## Evidence Status
 
-Fresh-clone terminal evidence has not yet been pasted here.
-
-This file is a review procedure until fresh-clone output is recorded.
+```text
+hosted fresh-checkout verification: recorded
+manual local fresh-clone verification: optional additional evidence
+```
