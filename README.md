@@ -1,172 +1,143 @@
 <p align="center">
-  <img src="assets/consequence-exposure-graph.svg" alt="Elyria Consequence Exposure Graph" width="100%" />
+  <img src="assets/consequence-exposure-graph.svg" alt="Elyria Consequence Twin — Consequence Admission Before Execution Binds" width="100%" />
 </p>
 
 # Elyria Consequence Twin
 
+<p align="center">
+  <img alt="Version" src="https://img.shields.io/badge/version-v0.8_Evidence_Gate-0B2233?style=for-the-badge&labelColor=071928&color=37E6FF" />
+  <img alt="Stack" src="https://img.shields.io/badge/full--stack-dashboard_%7C_API_%7C_engine_%7C_storage-0B2233?style=for-the-badge&labelColor=071928&color=00FF9D" />
+  <img alt="Runtime" src="https://img.shields.io/badge/runtime-demo--ready-0B2233?style=for-the-badge&labelColor=071928&color=8FFFC4" />
+  <img alt="Boundary" src="https://img.shields.io/badge/boundary-no_production_overclaim-0B2233?style=for-the-badge&labelColor=071928&color=FFD36C" />
+</p>
+
+<p align="center">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.11%2B-0B2233?style=flat-square&logo=python&logoColor=white&labelColor=071928&color=37E6FF" />
+  <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-API-0B2233?style=flat-square&logo=fastapi&logoColor=white&labelColor=071928&color=00FF9D" />
+  <img alt="SQLite" src="https://img.shields.io/badge/SQLite-storage-0B2233?style=flat-square&logo=sqlite&logoColor=white&labelColor=071928&color=8FFFC4" />
+  <img alt="Pytest" src="https://img.shields.io/badge/pytest-reviewer_path-0B2233?style=flat-square&logo=pytest&logoColor=white&labelColor=071928&color=FFD36C" />
+  <img alt="Owner" src="https://img.shields.io/badge/Samantha_Revita-Elyria_Systems-0B2233?style=flat-square&labelColor=071928&color=9CF7FF" />
+</p>
+
+## ◈ Position
+
 **Consequence admission before execution binds.**
 
-Elyria Consequence Twin is a full-stack buyer-facing proof surface for classifying consequence-bearing movement, attaching evidence references, emitting signed receipts, verifying replay basis, and exposing black-path execution risk before action becomes operationally real.
+Elyria Consequence Twin is a **full-stack buyer-facing runtime proof surface** for consequence-bearing systems. It models whether a proposed movement may become operationally real before execution binds.
 
-It answers a stricter operational question than ordinary workflow, risk, GRC, process-mining, or AI-governance software:
+It does not merely show what happened. It asks the stricter operational question:
 
-> Can this action become real right now, under valid authority, active standing, sufficient evidence, preserved custody, refusal logic, receipt, and replay proof?
+> Can this action become real right now, under valid authority, active standing, sufficient evidence, preserved custody, refusal logic, signed receipt, and replayable proof?
 
-## Claim Boundary
-
-Elyria is universal at the architecture layer.
-
-This repository is bounded at the proof-surface layer.
-
-Correct claim:
+## ◈ Current Claim
 
 ```text
 Elyria Consequence Twin is a full-stack buyer-facing runtime proof surface within Elyria's universal consequence-governance architecture.
 ```
 
-See:
+The architecture layer is universal. The public repo claim is bounded.
 
-```text
-CLAIM_BOUNDARY.md
-FULL_STACK_SCOPE.md
-REVIEWER_QUICKSTART.md
-BUYER_READOUT.md
-PROOF_OR_DEMO_PATH.md
-LIMITATIONS.md
-```
+This repository demonstrates one working consequence-admission sandbox. It does **not** expose protected Elyria / Veritas internals, claim substrate status, or claim production certification without security and customer-specific review.
 
-## Current Runtime Status
+## ◈ What This Repo Proves
 
-```text
-v0.7 Evidence Attachment Layer
-full-stack dashboard/API/engine/storage proof surface
-client mode authentication
-custom movement intake
-structured evidence references
-signed receipt envelope
-receipt replay verification
-current stored exposure graph
-proof packet export
-black-path executive warning
-test suite passing locally
-```
-
-## What It Proves
-
-Most systems record what happened after execution. Elyria models whether a movement can bind consequence before execution becomes operational reality.
-
-The runtime classifies each movement as:
-
-| Verdict | Color | Meaning |
-|---|---|---|
-| `ADMIT` | green | movement may bind consequence |
-| `HOLD` | yellow | missing or incomplete proof prevents clean admission |
-| `REFUSE` | red | movement is blocked by refusal, invalid authority, or inactive standing |
-| `NO_PROVABLE_ADMISSION` | black | movement is attempting to become real without durable proof |
-
-The black path is the executive risk surface. It shows where action may bind without valid authority, evidence, custody, receipt, or replay basis.
-
-## Core Runtime Path
+A reviewer can run the stack locally and inspect a complete consequence-control path:
 
 ```text
 movement intake
--> structured evidence references
--> deterministic admission verdict
--> signed receipt
--> SQLite storage
--> replay verification
--> current exposure graph
--> proof packet export
+→ authority / standing / evidence / custody checks
+→ evidence gate logic
+→ deterministic verdict
+→ signed receipt
+→ SQLite receipt storage
+→ replay verification
+→ current exposure graph
+→ proof packet export
 ```
 
-## Dashboard Capabilities
+The runtime classifies movement into four operational verdicts:
 
-The local dashboard includes:
+| Verdict | Color | Meaning |
+|---|---:|---|
+| `ADMIT` | green | movement may bind consequence |
+| `HOLD` | yellow | proof is incomplete or evidence needs correction |
+| `REFUSE` | red | movement is blocked by refusal, invalid authority, or inactive standing |
+| `NO_PROVABLE_ADMISSION` | black | movement is attempting to become real without durable proof |
+
+The black path is the executive risk surface. It exposes movement that may otherwise bind without sufficient proof.
+
+## ◈ Full-Stack Guts
+
+| Layer | Files | Purpose |
+|---|---|---|
+| Interface | `apps/api/static/index.html` | dashboard, token panel, movement intake, evidence editor, receipts, replay, proof export |
+| API | `apps/api/main.py` | FastAPI endpoints for assessment, receipts, replay, exposure graph, proof packet, sandbox reset |
+| Admission Engine | `src/consequence_twin/engine.py` | deterministic verdict selection: `ADMIT`, `HOLD`, `REFUSE`, `NO_PROVABLE_ADMISSION` |
+| Evidence Gate | `src/consequence_twin/evidence.py` | structured evidence summary and enforcement-bearing evidence status |
+| Receipts | `src/consequence_twin/receipt_runtime.py` | signed receipt envelope, input hash, evidence summary, replay basis |
+| Storage | `src/consequence_twin/storage.py` | local SQLite receipt persistence and retrieval |
+| Graph | `src/consequence_twin/graph.py` | consequence exposure graph from demo or stored receipt-backed movements |
+| Auth | `src/consequence_twin/auth.py` | client-mode bearer-token protection for protected endpoints |
+| Tests | `tests/` | engine, API, auth, storage, evidence, receipt replay, dashboard surface, full-stack path |
+| Docs | `docs/`, root review files | buyer readout, claim boundary, reviewer quickstart, proof/demo path, limitations |
+
+## ◈ v0.8 Evidence Gate Logic
+
+Structured evidence is now enforcement-bearing when present.
+
+Evidence is not decorative metadata. It can control the verdict.
+
+Rules:
 
 ```text
-Client Token Panel
-Client Movement Intake
-Evidence Attachment Layer
-Preset Accepted Evidence
-Preset Missing Evidence
-Preset Black Path
-Preset Refusal
-Current Stored Graph
-Receipt Cards
-Replay Receipt
-Export Proof Packet
-Raw Proof JSON
+accepted required evidence → ADMIT remains available
+missing required evidence → NO_PROVABLE_ADMISSION when authority and standing could otherwise bind
+insufficient required evidence → HOLD
+missing custody owner → HOLD
+missing hash/reference → HOLD
+unsupported evidence status → HOLD
 ```
 
-Client mode protects receipt, replay, proof export, sandbox reset, and movement-assessment endpoints behind a bearer token.
+This prevents a movement from claiming clean admission while its structured evidence record contradicts that claim.
 
-## Evidence Attachment Layer
+## ◈ Signed Receipt and Replay Basis
 
-Each client movement can include structured evidence references:
-
-```json
-{
-  "evidence_id": "EV-CLIENT-001",
-  "evidence_type": "policy_record",
-  "source_system": "client.governance.registry",
-  "custody_owner": "operations.owner",
-  "hash_reference": "sha256:client-demo-reference",
-  "required": true,
-  "status": "accepted",
-  "notes": "Required evidence reference for this movement."
-}
-```
-
-Receipts include an `evidence_summary` showing:
+Each assessed movement emits a receipt containing:
 
 ```text
-total evidence items
-required evidence count
-accepted evidence count
-missing evidence count
-insufficient evidence count
-custody gaps
-hash/reference count
-source systems
-custody owners
-evidence status
+receipt_id
+movement_id
+verdict
+color
+reasons
+timestamp_utc
+input_hash
+engine_version
+original_input
+evidence_summary
+signature_algorithm
+signature
 ```
 
-The evidence summary is included inside the signed receipt envelope and verified during replay.
-
-## API Surface
+Replay verifies:
 
 ```text
-GET  /healthz
-POST /movements/assess
-GET  /receipts
-GET  /receipts/{receipt_id}
-POST /receipts/{receipt_id}/replay
-GET  /exposures/demo
-GET  /exposures/current
-GET  /demo/proof
-POST /sandbox/reset
+input_hash_matches
+verdict_matches
+signature_matches
+evidence_summary_matches
 ```
 
-Protected in client mode:
+## ◈ Demo-Ready Runtime Path
 
-```text
-POST /movements/assess
-GET  /receipts
-GET  /receipts/{receipt_id}
-POST /receipts/{receipt_id}/replay
-GET  /exposures/current
-GET  /demo/proof
-POST /sandbox/reset
-```
-
-## Run Locally
+Run locally:
 
 ```bash
 cd elyria-consequence-twin
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 python -m pytest tests
 uvicorn apps.api.main:app --reload --host 0.0.0.0 --port 8080
 ```
@@ -177,7 +148,22 @@ Open:
 http://localhost:8080
 ```
 
-## Client Mode
+Expected reviewer result:
+
+```text
+RESULT: PASS
+Dashboard loads.
+Movement can be submitted.
+Evidence can be attached.
+Signed receipt is emitted.
+Replay verifies.
+Current graph updates.
+Proof packet exports.
+```
+
+## ◈ Client Mode
+
+Client mode protects receipt, replay, proof export, sandbox reset, current graph, and movement-assessment endpoints behind a bearer token.
 
 ```bash
 export ELYRIA_MODE=client
@@ -186,14 +172,15 @@ export ELYRIA_RECEIPT_SIGNING_SECRET="replace-with-local-signing-secret"
 uvicorn apps.api.main:app --reload --host 0.0.0.0 --port 8080
 ```
 
-In the browser:
+Browser flow:
 
 ```text
-enter token
 Save Token Locally
 Test Protected Access
 Reset Sandbox + Generate Receipts
-Preset Accepted Evidence or Preset Missing Evidence
+Preset Accepted Evidence
+Submit Movement + Emit Receipt
+Preset Black Path
 Submit Movement + Emit Receipt
 Load Current Stored Graph
 Load Receipt Cards
@@ -201,26 +188,71 @@ Replay Receipt
 Export Proof Packet
 ```
 
-Do not commit or screenshot real tokens, signing secrets, client evidence, private hashes, or live client identifiers.
+## ◈ API Surface
 
-## Demo Script and Packaging Docs
+| Method | Endpoint | Purpose | Client Mode |
+|---|---|---|---|
+| `GET` | `/healthz` | service status | public |
+| `POST` | `/movements/assess` | submit movement, emit signed receipt | protected |
+| `GET` | `/receipts` | list stored receipts | protected |
+| `GET` | `/receipts/{receipt_id}` | read one receipt | protected |
+| `POST` | `/receipts/{receipt_id}/replay` | replay and verify receipt | protected |
+| `GET` | `/exposures/demo` | load demo exposure graph | public |
+| `GET` | `/exposures/current` | build graph from stored receipts | protected |
+| `GET` | `/demo/proof` | export proof packet | protected |
+| `POST` | `/sandbox/reset` | reset demo receipt store | protected |
+
+## ◈ Buyer / Reviewer File Set
+
+| File | Purpose |
+|---|---|
+| `CLAIM_BOUNDARY.md` | exact public claim and non-claim boundary |
+| `FULL_STACK_SCOPE.md` | full-stack layer map and reviewer standard |
+| `REVIEWER_QUICKSTART.md` | one clean reviewer command path |
+| `BUYER_READOUT.md` | buyer-facing explanation and inspection list |
+| `PROOF_OR_DEMO_PATH.md` | click-by-click proof path |
+| `LIMITATIONS.md` | production, evidence, auth, signing, and data boundaries |
+| `docs/10_executive_demo_script.md` | executive demo talk track |
+| `docs/11_buyer_one_page.md` | one-page buyer framing |
+| `docs/12_demo_screenshot_and_proof_safety.md` | screenshot/proof-packet safety checklist |
+| `docs/13_public_product_page_copy.md` | product-page copy |
+| `docs/14_screenshot_capture_plan.md` | screenshot sequence and captions |
+| `docs/15_evidence_enforcement.md` | v0.8 evidence gate summary |
+
+## ◈ Production Posture
+
+This repo is **demo-ready and production-oriented**, not production-certified.
+
+Production deployment requires:
 
 ```text
-docs/10_executive_demo_script.md
-docs/11_buyer_one_page.md
-docs/12_demo_screenshot_and_proof_safety.md
-docs/13_public_product_page_copy.md
-docs/14_screenshot_capture_plan.md
-examples/public_demo_proof_packet.example.json
+security review
+secret management
+enterprise authentication and authorization
+customer-specific policy mapping
+customer-specific evidence mapping
+logging and retention review
+deployment hardening
+key-management review
+legal/compliance review where applicable
+operational acceptance testing
 ```
 
-## Commercial Offer
+Correct production boundary:
+
+```text
+Full-stack proof surface, not production certification.
+Universal architecture layer, bounded public repo claim.
+Samantha Revita / Elyria Systems.
+```
+
+## ◈ Commercial Offer Surface
 
 ### Consequence Twin Scan
 
 A 7-10 day operational diagnostic that maps where AI, workflow, access, approval, payment, deployment, or customer-operation actions may bind consequence without sufficient authority, evidence, custody, standing, receipt, or replay proof.
 
-Deliverables can include:
+Possible deliverables:
 
 ```text
 Consequence Binding Map
@@ -234,10 +266,26 @@ Executive Consequence Risk Brief
 Implementation Blueprint
 ```
 
-## Repository Boundary
+## ◈ Safety Boundary
 
-This repository is a commercial and technical scaffold. It is not the full private Elyria runtime, private artifact estate, or proprietary proof corridor. It defines the sellable diagnostic surface and a starter implementation lane while preserving deeper runtime IP boundaries.
+Do not commit, screenshot, or export:
 
-## Ownership Notice
+```text
+real API tokens
+real signing secrets
+client evidence
+private hashes
+customer identifiers
+regulated data
+production proof packets
+```
 
-Copyright (c) Samantha Revita / Elyria Systems. All rights reserved.
+Use sanitized demo data only for public proof surfaces.
+
+## ◈ Ownership
+
+```text
+Samantha Revita / Elyria Systems
+```
+
+All rights reserved.
