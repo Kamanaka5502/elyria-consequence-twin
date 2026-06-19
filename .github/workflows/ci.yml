@@ -19,13 +19,5 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
           python -m pip install -e .
-      - name: Unit tests
-        run: python -m pytest
-      - name: Generate review-bundle digest manifest
-        run: python scripts/generate_digest_manifest.py review-bundle/latest
-      - name: Verify review-bundle digest manifest
-        run: python scripts/verify_digest_manifest.py review-bundle/latest
-      - name: External verifier
-        run: python external_verifier/verify_bundle.py review-bundle/latest
-      - name: Production preflight review mode
-        run: python scripts/production_preflight.py --mode review
+      - name: Full verification runner
+        run: python scripts/verify_all.py
