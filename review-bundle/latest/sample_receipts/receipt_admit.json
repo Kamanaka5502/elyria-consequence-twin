@@ -1,0 +1,18 @@
+{
+  "color": "green",
+  "engine_version": "0.8.1",
+  "evidence_hash": "c4f4f11041fccb4f58502f4332dca277a9ed43853552261c4fc8bcc95e95ddde",
+  "input_hash": "0ce7933841ba662e0db7f30c4fc43be80105b79bb1ccd19fdc8fa0628725bd62",
+  "key_id": "review-bundle-demo-key",
+  "movement_id": "MOVE-REVIEW-001",
+  "policy_pack_hash": "31734f5a9d7c72ee3e7d15e2785c065cf34581411c46fc115ddc0f4f26512b61",
+  "reasons": [
+    "review sample satisfies policy pack"
+  ],
+  "receipt_id": "RCT-REVIEW-ADMIT-001",
+  "signature": "df2205cab270e2fabc60db3328d23bd04771affc0755521bae24fcbd4104d522",
+  "signature_alg": "SHA256-CANONICAL-REVIEW",
+  "tenant_id": "tenant-review",
+  "timestamp_utc": "2026-06-19T18:00:00+00:00",
+  "verdict": "ADMIT"
+}
