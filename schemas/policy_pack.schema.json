@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Elyria Admission Runtime Policy Pack",
+  "type": "object",
+  "required": [
+    "policy_pack_id",
+    "version",
+    "allowed_movement_types",
+    "allowed_authority_scopes",
+    "required_evidence",
+    "custody_required",
+    "refusal_rules"
+  ],
+  "properties": {
+    "policy_pack_id": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "minLength": 1 },
+    "allowed_movement_types": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "allowed_authority_scopes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "required_evidence": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "custody_required": { "type": "boolean" },
+    "refusal_rules": {
+      "type": "object",
+      "properties": {
+        "blocking_codes": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["blocking_codes"]
+    },
+    "escalation_rules": { "type": "object" },
+    "replay_rules": { "type": "object" },
+    "no_bind_rules": { "type": "object" }
+  }
+}
