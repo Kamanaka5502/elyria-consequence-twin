@@ -1,0 +1,77 @@
+{
+  "artifacts": [
+    {
+      "path": "CHANGED_CONDITION_REPLAY.md",
+      "sha256": "71208bf44783a489af857d25e079a5cc5fa1a74a443c2913bb255057ae54494a",
+      "size_bytes": 166
+    },
+    {
+      "path": "CLAIM_BOUNDARY.md",
+      "sha256": "ff0fbce716ad4ad7f23850f5ca23e409ac0fc9a7f49d9d9590ff826eff7d093e",
+      "size_bytes": 170
+    },
+    {
+      "path": "EXECUTIVE_SUMMARY.md",
+      "sha256": "6f8d57bd9dc292a98c932a28fa2d2e92254716a7bd9fe26c7edfc67d299da4f0",
+      "size_bytes": 348
+    },
+    {
+      "path": "LIMITATIONS.md",
+      "sha256": "c9ac2f28c81cf20edbe3e415fffc6dfba90f1048488ed43350ac3f9049018fe2",
+      "size_bytes": 268
+    },
+    {
+      "path": "NO_BIND_PROOF.md",
+      "sha256": "bfd7ecbbf5dfe5c06e6a1c32c9051d9e512055291d22bd6211055bc7e74ca17a",
+      "size_bytes": 180
+    },
+    {
+      "path": "PROOF_SURFACE.md",
+      "sha256": "d2d3ded772a92cfbacc73d827a9b0059aaad075b4f3c49bc98649530034aeaae",
+      "size_bytes": 215
+    },
+    {
+      "path": "ROUTE_CLOSURE_PROOF.md",
+      "sha256": "37dd057d07952b2b49495a24ba41823dc87dd9598d614f508a625f3317426ceb",
+      "size_bytes": 192
+    },
+    {
+      "path": "VERIFY_OUTPUT.txt",
+      "sha256": "cd8155695e8cc6fecc840fe3ba88e31ba527c752f103b1b1985ef53edea3fadc",
+      "size_bytes": 47
+    },
+    {
+      "path": "external_verifier/README.md",
+      "sha256": "f6172ff85af96ffc30cfa1a48b44a56fef8697a4a0323efc04eb26ed27098088",
+      "size_bytes": 206
+    },
+    {
+      "path": "sample_audit_chain/audit_chain.json",
+      "sha256": "5f3a2035d19a7be72ac2c3a514eb9b1edd7b87766b6a3de1cfe2825b5d50fb33",
+      "size_bytes": 1408
+    },
+    {
+      "path": "sample_no_bind/no_bind_refuse.json",
+      "sha256": "790a1f02d076a600513dfd222e71e95d1cf940db694421c16cbaa5fd6e3f1093",
+      "size_bytes": 586
+    },
+    {
+      "path": "sample_policy_packs/basic_customer_corridor.json",
+      "sha256": "80386d0484638c4ae2f029d3fcfd8bd57809ca3cad7dee5c24dcc30b31c4f0a8",
+      "size_bytes": 788
+    },
+    {
+      "path": "sample_receipts/receipt_admit.json",
+      "sha256": "72e96a965a89c5b1820d3a14eb71bf399cbfdbe114030e979aaa9491ca8a48dc",
+      "size_bytes": 720
+    },
+    {
+      "path": "sample_replays/changed_replay.json",
+      "sha256": "1a45d255ae06fa724b7d51f9c9ec49a7e046edef29be270dd0a743aa8032536a",
+      "size_bytes": 500
+    }
+  ],
+  "generated_timestamp_utc": "2026-06-19T18:00:00+00:00",
+  "generator_version": "0.1.0",
+  "manifest_type": "elyria_admission_runtime_digest_manifest"
+}
