@@ -16,6 +16,35 @@
 
 ---
 
+## ◈ Reviewer Entry Points
+
+Start here for buyer-review, technical evaluation, and verification:
+
+| Entry Point | Purpose |
+|---|---|
+| `BUYER_REVIEW_INDEX.md` | complete public review map |
+| `REVIEWER_VERIFICATION.md` | one-command reviewer path |
+| `A_PLUS_VERIFICATION_GATE.md` | final evidence gate before A+ wording |
+| `RELEASE_CHECKLIST.md` | release naming and bounded claim language |
+| `VERIFICATION_EVIDENCE_TEMPLATE.md` | evidence capture template |
+
+Primary verification command:
+
+```bash
+python scripts/verify_all.py --report verification-report.json
+```
+
+Current posture:
+
+```text
+Implementation: complete across Phases 1-4
+Verification: pending CI and fresh-clone evidence
+Public posture: bounded buyer-review runtime candidate
+Production deployment: subject to customer review and external review where required
+```
+
+---
+
 ## ◈ Position
 
 Elyria Admission Runtime is a **full-stack consequence-admission runtime** for systems where action should not become operationally real without valid authority, active standing, sufficient evidence, preserved custody, deterministic verdicting, signed receipt, and replayable proof.
@@ -47,7 +76,8 @@ python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
-python -m pytest tests
+python -m pip install -e .
+python scripts/verify_all.py --report verification-report.json
 uvicorn apps.api.main:app --reload --host 0.0.0.0 --port 8080
 ```
 
@@ -79,7 +109,7 @@ Signed receipt is emitted.
 Replay verifies.
 Current graph updates.
 Proof packet exports.
-Tests pass locally.
+Full verifier passes locally.
 ```
 
 ## ◈ Container Install
@@ -211,7 +241,9 @@ NO_PROVABLE_ADMISSION → movement attempts to bind without durable proof
 | SQLite receipt storage | present |
 | Current exposure graph | present |
 | Proof packet export | present |
-| Reviewer test path | present |
+| Reviewer verification runner | present |
+| External verifier | present |
+| Production preflight review mode | present |
 | Production claim | production-oriented / not certified |
 
 ## ◈ Runtime Path
@@ -253,7 +285,8 @@ The black path is the executive risk surface. It exposes movement that may other
 | Storage | `src/consequence_twin/storage.py` | local SQLite receipt persistence and retrieval |
 | Graph | `src/consequence_twin/graph.py` | consequence exposure graph from demo or stored receipt-backed movements |
 | Auth | `src/consequence_twin/auth.py` | client-mode bearer-token protection for protected endpoints |
-| Tests | `tests/` | engine, API, auth, storage, evidence, receipt replay, dashboard surface, full-stack path |
+| Reviewer Proof Gates | `scripts/verify_all.py`, `external_verifier/`, `review-bundle/latest/` | full verification runner, external verification, digest-manifest review |
+| Tests | `tests/` | engine, API, auth, storage, evidence, receipt replay, dashboard surface, full-stack path, verifier paths |
 | Docs | `docs/`, root review files | buyer readout, claim boundary, reviewer quickstart, proof/demo path, limitations |
 
 ## ◈ v0.8 Evidence Gate Logic
@@ -348,6 +381,11 @@ Export Proof Packet
 
 | File | Purpose |
 |---|---|
+| `BUYER_REVIEW_INDEX.md` | top-level buyer/reviewer map |
+| `REVIEWER_VERIFICATION.md` | one-command verification path |
+| `A_PLUS_VERIFICATION_GATE.md` | final evidence gate before A+ wording |
+| `RELEASE_CHECKLIST.md` | release naming and bounded wording |
+| `VERIFICATION_EVIDENCE_TEMPLATE.md` | evidence capture template |
 | `CLAIM_BOUNDARY.md` | exact public claim and non-claim boundary |
 | `FULL_STACK_SCOPE.md` | full-stack layer map and reviewer standard |
 | `REVIEWER_QUICKSTART.md` | one clean reviewer command path |
