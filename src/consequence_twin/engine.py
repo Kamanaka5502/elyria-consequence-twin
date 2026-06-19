@@ -1,8 +1,10 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from enum import Enum
 from typing import Any, Dict, List
+
+from .evidence import summarize_evidence
 
 
 class Verdict(str, Enum):
@@ -42,6 +44,22 @@ def _required_bool(payload: Dict[str, Any], key: str) -> bool:
     return value
 
 
+def _add_unique(reasons: List[str], reason: str) -> None:
+    if reason not in reasons:
+        reasons.append(reason)
+
+
+def _has_structured_evidence(payload: Dict[str, Any]) -> bool:
+    return bool(payload.get("evidence_items"))
+
+
+def _required_evidence_missing(evidence_summary: Dict[str, Any]) -> bool:
+    return any(
+        str(reason).startswith("required evidence missing:")
+        for reason in evidence_summary.get("reasons", [])
+    )
+
+
 def assess_movement(payload: Dict[str, Any]) -> AssessmentResult:
     """
     Deterministic consequence-admission assessment.
@@ -63,6 +81,9 @@ def assess_movement(payload: Dict[str, Any]) -> AssessmentResult:
     revalidation_required = _required_bool(payload, "revalidation_required")
     receipt_available = _required_bool(payload, "receipt_available")
     replay_available = _required_bool(payload, "replay_available")
+
+    evidence_summary = summarize_evidence(payload)
+    has_structured_evidence = _has_structured_evidence(payload)
 
     hard_refusal_reasons: List[str] = []
     hold_reasons: List[str] = []
@@ -90,12 +111,27 @@ def assess_movement(payload: Dict[str, Any]) -> AssessmentResult:
     if not replay_available:
         hold_reasons.append("replay unavailable")
 
+    if has_structured_evidence and evidence_summary["status"] == "attention_required":
+        for reason in evidence_summary["reasons"]:
+            _add_unique(hold_reasons, reason)
+
     if not receipt_available or not replay_available:
         black_path_reasons.append("consequence path lacks durable receipt or replay proof")
     if authority_present and authority_scope_valid and standing_active and not evidence_present:
         black_path_reasons.append("authority appears to admit movement without required evidence")
     if custody_preserved is False and evidence_present:
         black_path_reasons.append("evidence exists but custody does not hold")
+
+    if (
+        has_structured_evidence
+        and _required_evidence_missing(evidence_summary)
+        and authority_present
+        and authority_scope_valid
+        and standing_active
+    ):
+        black_path_reasons.append(
+            "required structured evidence missing while authority could bind movement"
+        )
 
     if hard_refusal_reasons:
         verdict = Verdict.REFUSE
