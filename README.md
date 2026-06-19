@@ -3,7 +3,7 @@
 <p align="center"><strong>Consequence Admission Before Execution Binds</strong></p>
 
 <p align="center">
-  ◈ Full-Stack Runtime Proof Surface &nbsp; │ &nbsp;
+  ◈ Full-Stack Consequence Runtime &nbsp; │ &nbsp;
   ◈ Evidence-Gated Admission &nbsp; │ &nbsp;
   ◈ Signed Receipts &nbsp; │ &nbsp;
   ◈ Replay Verification &nbsp; │ &nbsp;
@@ -18,25 +18,27 @@
 
 ## ◈ Position
 
-Elyria Consequence Twin is a **full-stack buyer-facing runtime proof surface** for consequence-bearing systems. It models whether a proposed movement may become operationally real before execution binds.
+Elyria Consequence Twin is a **full-stack consequence-governance runtime and commercial product scaffold** for consequence-bearing systems. It models whether a proposed movement may become operationally real before execution binds.
 
-It does not merely show what happened. It asks the stricter operational question:
+This is not just a proof artifact. It is a runnable product surface with dashboard intake, API assessment, deterministic admission logic, structured evidence gating, signed receipts, local storage, replay verification, exposure graphing, and proof packet export.
+
+It asks the stricter operational question:
 
 > Can this action become real right now, under valid authority, active standing, sufficient evidence, preserved custody, refusal logic, signed receipt, and replayable proof?
 
 ## ◈ Current Claim
 
 ```text
-Elyria Consequence Twin is a full-stack buyer-facing runtime proof surface within Elyria's universal consequence-governance architecture.
+Elyria Consequence Twin is a full-stack consequence-admission runtime and buyer-facing product scaffold within Elyria's universal consequence-governance architecture.
 ```
 
 The architecture layer is universal. The public repo claim is bounded.
 
-This repository demonstrates one working consequence-admission sandbox. It does **not** expose protected Elyria / Veritas internals, claim substrate status, or claim production certification without security and customer-specific review.
+This repository exposes the reviewable product/demo layer of the Consequence Twin. It does **not** expose protected Elyria / Veritas internals, claim substrate status, or claim production certification without security and customer-specific review.
 
-## ◈ Proof Status
+## ◈ Runtime Status
 
-| Surface | Status |
+| Capability | Status |
 |---|---|
 | Full-stack dashboard | present |
 | API assessment path | present |
@@ -48,9 +50,9 @@ This repository demonstrates one working consequence-admission sandbox. It does 
 | Current exposure graph | present |
 | Proof packet export | present |
 | Reviewer test path | present |
-| Production claim | bounded / not certified |
+| Production claim | production-oriented / not certified |
 
-## ◈ What This Repo Proves
+## ◈ Runtime Path
 
 A reviewer can run the stack locally and inspect a complete consequence-control path:
 
@@ -252,7 +254,7 @@ operational acceptance testing
 Correct production boundary:
 
 ```text
-Full-stack proof surface, not production certification.
+Full-stack consequence runtime, not production certification.
 Universal architecture layer, bounded public repo claim.
 Samantha Revita / Elyria Systems.
 ```
@@ -291,7 +293,7 @@ regulated data
 production proof packets
 ```
 
-Use sanitized demo data only for public proof surfaces.
+Use sanitized demo data only for public demos, proof packets, and reviewer runs.
 
 ## ◈ Ownership
 
