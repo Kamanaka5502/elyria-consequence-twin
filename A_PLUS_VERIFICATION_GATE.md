@@ -49,6 +49,14 @@ python -m venv .venv
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 python -m pip install -e .
+python scripts/verify_all.py
+```
+
+## Expanded Verification Path
+
+The full verifier runs:
+
+```text
 python -m pytest
 python scripts/generate_digest_manifest.py review-bundle/latest
 python scripts/verify_digest_manifest.py review-bundle/latest
@@ -63,6 +71,7 @@ pytest PASS
 DIGEST MANIFEST PASS
 RESULT: ELYRIA ADMISSION RUNTIME VERIFIER PASS
 PRODUCTION PREFLIGHT REVIEW MODE PASS
+RESULT: ELYRIA ADMISSION RUNTIME FULL VERIFY PASS
 ```
 
 ## Final Buyer-Review Claim After Gate Passes
