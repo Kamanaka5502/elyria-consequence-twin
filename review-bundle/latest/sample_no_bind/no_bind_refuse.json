@@ -1,0 +1,18 @@
+{
+  "blocked_consequence_path": "protected_execution_route",
+  "downstream_effect_status": "not_activated",
+  "missing_or_invalid_standing_condition": "authority absent",
+  "movement_attempted": {
+    "authority_present": false,
+    "movement_id": "MOVE-REVIEW-REFUSE-001",
+    "tenant_id": "tenant-review"
+  },
+  "proof_type": "elyria_no_bind_proof",
+  "reason_admission_failed": [
+    "authority absent"
+  ],
+  "receipt_reference": "RCT-REVIEW-REFUSE-001",
+  "replay_reference": "REPLAY-REVIEW-001",
+  "route_closure_state": "closed",
+  "timestamp_utc": "2026-06-19T18:01:00+00:00"
+}
