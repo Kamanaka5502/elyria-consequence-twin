@@ -8,7 +8,7 @@ Samantha Revita / Elyria Systems
 
 ## Public release status
 
-This repository may be made public only as a bounded portfolio, buyer-demo, and proof-surface repository.
+This repository may be made public as a bounded portfolio, buyer-demo, and consequence-runtime product scaffold.
 
 It must not be described as:
 
@@ -24,7 +24,7 @@ legal, medical, financial, or security certification
 Correct public framing:
 
 ```text
-Full-stack proof surface, not production certification.
+Full-stack consequence runtime, not production certification.
 Universal architecture layer, bounded public repo claim.
 Samantha Revita / Elyria Systems.
 ```
@@ -79,6 +79,6 @@ The absence of a license file means public viewers may inspect the repository, b
 ## Final pre-public statement
 
 ```text
-This repository is a public proof surface for review and commercial positioning.
+This repository is a public consequence-runtime product scaffold for review and commercial positioning.
 It is not a grant of rights, production certification, or disclosure of protected Elyria internals.
 ```
